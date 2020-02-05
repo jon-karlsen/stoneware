@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using StoneWare.Models;
 
 namespace StoneWare.Data
@@ -148,6 +147,78 @@ namespace StoneWare.Data
                     {
                         Id = 6,
                         Name = "Windows Mobile"
+                    }
+                );
+
+            modelBuilder.Entity<VersionNumber>()
+                .HasData(
+                    new VersionNumber
+                    {
+                        Id = 1,
+                        Description = "1.0"
+                    },
+                    new VersionNumber
+                    {
+                        Id = 2,
+                        Description = "1.1"
+                    },
+                    new VersionNumber
+                    {
+                        Id = 3,
+                        Description = "1.2"
+                    },
+                    new VersionNumber
+                    {
+                        Id = 4,
+                        Description = "1.3"
+                    },
+                    new VersionNumber
+                    {
+                        Id = 5,
+                        Description = "2.0"
+                    },
+                    new VersionNumber
+                    {
+                        Id = 6,
+                        Description = "2.1"
+                    }
+                );
+
+            modelBuilder.Entity<Product>()
+                .HasData(
+                    new Product
+                    {
+                        Id = 1,
+                        Name = "Day Trader Wannabe"
+                    },
+                    new Product
+                    {
+                        Id = 2,
+                        Name = "Investment Overlord"
+                    },
+                    new Product
+                    {
+                        Id = 3,
+                        Name = "Workout Planner"
+                    },
+                    new Product
+                    {
+                        Id = 4,
+                        Name = "Social Anxiety Planner"
+                    }
+                );
+
+            modelBuilder.Entity<Status>()
+                .HasData(
+                    new Status
+                    {
+                        Id = 1,
+                        Name = "Open"
+                    },
+                    new Status
+                    {
+                        Id = 2,
+                        Name = "Resolved"
                     }
                 );
         }

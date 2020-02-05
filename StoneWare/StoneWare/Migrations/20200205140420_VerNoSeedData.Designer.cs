@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoneWare.Data;
 
 namespace StoneWare.Migrations
 {
     [DbContext(typeof(StoneWareContext))]
-    partial class StoneWareContextModelSnapshot : ModelSnapshot
+    [Migration("20200205140420_VerNoSeedData")]
+    partial class VerNoSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,28 +128,6 @@ namespace StoneWare.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Product");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Day Trader Wannabe"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Investment Overlord"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Workout Planner"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Social Anxiety Planner"
-                        });
                 });
 
             modelBuilder.Entity("StoneWare.Models.ProductVersionOs", b =>
@@ -187,18 +167,6 @@ namespace StoneWare.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Open"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Resolved"
-                        });
                 });
 
             modelBuilder.Entity("StoneWare.Models.VersionNumber", b =>
