@@ -27,6 +27,10 @@
           <e p="20200205140420_VerNoSeedData.Designer.cs" t="Include" />
           <e p="20200205140956_ProdSeedData.cs" t="Include" />
           <e p="20200205140956_ProdSeedData.Designer.cs" t="Include" />
+          <e p="20200205141337_StatusSeedData.cs" t="Include" />
+          <e p="20200205141337_StatusSeedData.Designer.cs" t="Include" />
+          <e p="20200206115333_ProductVerOsSeedData.cs" t="Include" />
+          <e p="20200206115333_ProductVerOsSeedData.Designer.cs" t="Include" />
           <e p="StoneWareContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">

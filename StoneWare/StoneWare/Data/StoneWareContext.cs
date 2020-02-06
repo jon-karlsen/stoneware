@@ -1,5 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Bogus;
+using Microsoft.EntityFrameworkCore;
 using StoneWare.Models;
+using OperatingSystem = StoneWare.Models.OperatingSystem;
 
 namespace StoneWare.Data
 {
@@ -221,6 +226,307 @@ namespace StoneWare.Data
                         Name = "Resolved"
                     }
                 );
+
+            modelBuilder.Entity<ProductVersionOs>()
+                .HasData(
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 1
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 1
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 3,
+                        OperatingSystemId = 1
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 3,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 3,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 3,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 3,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 3,
+                        OperatingSystemId = 6
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 4,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 4,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 4,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 1, 
+                        VersionNumberId = 4,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 5,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 5,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 5,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 6,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 6,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 6,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 2, 
+                        VersionNumberId = 6,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 1
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 1
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 6
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 5,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 5,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 5,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 3, 
+                        VersionNumberId = 5,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 5
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 1,
+                        OperatingSystemId = 6
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 2
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 3
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 4
+                    },
+                    new ProductVersionOs
+                    {
+                        ProductId = 4, 
+                        VersionNumberId = 2,
+                        OperatingSystemId = 5
+                    }
+                );
+
+            // Set the randomiser for repeatable data sets
+//            Randomizer.Seed = new Random(8675309);
+//
+//            var issueId = 1;
+//            var testIssues = new Faker<Issue>()
+////                .StrictMode(true)
+//                .RuleFor(i => i.Id, f => issueId++)
+//                .RuleFor(i => i.ProductId, f => f.Random.Number(1, 4))
+//                .RuleFor(i => i.VersionNumberId, f => f.Random.Number(1, 6))
+//                .RuleFor(i => i.OperatingSystemId, f => f.Random.Number(1, 6))
+//                .RuleFor(i => i.StatusId, f => f.Random.Number(1, 2))
+//                .RuleFor(i => i.TimeCreated, f => f.Date.Recent(7))
+//                .RuleFor(i => i.TimeLastUpdated, f => f.Date.Recent(2))
+//                .RuleFor(i => i.Problem, f => f.Lorem.Sentence(100))
+//                .RuleFor(i => i.Resolution,
+//                    (f, i) => i.StatusId == 2 ? f.Lorem.Sentence(100) : null);
+//
+//            var issueList = new List<Issue>();
+//
+//            for (var i = 0; i < 50; i++)
+//            {
+//                var testIssue = testIssues.Generate();
+//                issueList.Add(testIssue);
+//            }
+//
+//            modelBuilder.Entity<Issue>().HasData(issueList);
         }
     }
 }
