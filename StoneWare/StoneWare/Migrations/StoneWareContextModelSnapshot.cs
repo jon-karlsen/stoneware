@@ -543,18 +543,21 @@ namespace StoneWare.Migrations
                         .WithMany("ProductVersionOs")
                         .HasForeignKey("OperatingSystemId")
                         .HasConstraintName("FK_ProductVersionOs_OperatingSystem")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StoneWare.Models.Product", "Product")
                         .WithMany("ProductVersionOs")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("FK_ProductVersionOs_Product")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StoneWare.Models.VersionNumber", "VersionNumber")
                         .WithMany("ProductVersionOs")
                         .HasForeignKey("VersionNumberId")
                         .HasConstraintName("FK_ProductVersionOs_VersionNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

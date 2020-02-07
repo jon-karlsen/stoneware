@@ -10,8 +10,8 @@ using StoneWare.Data;
 namespace StoneWare.Migrations
 {
     [DbContext(typeof(StoneWareContext))]
-    [Migration("20200206115333_ProductVerOsSeedData")]
-    partial class ProductVerOsSeedData
+    [Migration("20200207183502_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -545,18 +545,21 @@ namespace StoneWare.Migrations
                         .WithMany("ProductVersionOs")
                         .HasForeignKey("OperatingSystemId")
                         .HasConstraintName("FK_ProductVersionOs_OperatingSystem")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StoneWare.Models.Product", "Product")
                         .WithMany("ProductVersionOs")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("FK_ProductVersionOs_Product")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StoneWare.Models.VersionNumber", "VersionNumber")
                         .WithMany("ProductVersionOs")
                         .HasForeignKey("VersionNumberId")
                         .HasConstraintName("FK_ProductVersionOs_VersionNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

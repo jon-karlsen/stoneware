@@ -7,8 +7,6 @@ namespace StoneWare.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            return;
-            
             migrationBuilder.CreateTable(
                 name: "OperatingSystem",
                 columns: table => new

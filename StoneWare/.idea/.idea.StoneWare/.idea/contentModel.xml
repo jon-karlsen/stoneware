@@ -19,18 +19,8 @@
         <e p="Migrations" t="Include">
           <e p="20200205133928_initial.cs" t="Include" />
           <e p="20200205133928_initial.Designer.cs" t="Include" />
-          <e p="20200205134609_OpSysSeedData.cs" t="Include" />
-          <e p="20200205134609_OpSysSeedData.Designer.cs" t="Include" />
-          <e p="20200205140018_asd.cs" t="Include" />
-          <e p="20200205140018_asd.Designer.cs" t="Include" />
-          <e p="20200205140420_VerNoSeedData.cs" t="Include" />
-          <e p="20200205140420_VerNoSeedData.Designer.cs" t="Include" />
-          <e p="20200205140956_ProdSeedData.cs" t="Include" />
-          <e p="20200205140956_ProdSeedData.Designer.cs" t="Include" />
-          <e p="20200205141337_StatusSeedData.cs" t="Include" />
-          <e p="20200205141337_StatusSeedData.Designer.cs" t="Include" />
-          <e p="20200206115333_ProductVerOsSeedData.cs" t="Include" />
-          <e p="20200206115333_ProductVerOsSeedData.Designer.cs" t="Include" />
+          <e p="20200207183502_SeedData.cs" t="Include" />
+          <e p="20200207183502_SeedData.Designer.cs" t="Include" />
           <e p="StoneWareContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
