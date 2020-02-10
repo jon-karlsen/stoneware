@@ -14,7 +14,7 @@ namespace StoneWare.Models
         public string Problem { get; set; }
         public string Resolution { get; set; }
 
-        public virtual ProductVersionOs ProductVersionOs { get; set; }
-        public virtual Status Status { get; set; }
+//        public virtual ProductVersionOs ProductVersionOs { get; set; }
+//        public virtual Status Status { get; set; }
     }
 }

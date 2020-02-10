@@ -11,35 +11,6 @@ namespace StoneWare.Data
 {
     public class StoneWareContext : DbContext
     {
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private enum OperatingSystemEnum
-        {
-            Linux = 1,
-            MacOS = 2,
-            Windows = 3,
-            Android = 4,
-            iOS = 5,
-            WindowsMobile = 6
-        }
-
-        private enum VersionNumberEnum
-        {
-            OneZero = 1,
-            OneOne = 2,
-            OneTwo = 3,
-            OneThree = 4,
-            TwoZero = 5,
-            TwoOne = 6
-        }
-
-        private enum ProductEnum
-        {
-            DayTraderWannabe = 1,
-            InvestmentOverlord = 2,
-            WorkoutPlanner = 3,
-            SocialAnxietyPlanner = 4
-        }
-
         public StoneWareContext()
         {
         }
@@ -80,17 +51,17 @@ namespace StoneWare.Data
 
                 entity.Property(e => e.TimeLastUpdated).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.Issue)
-                    .HasForeignKey(d => d.StatusId)
-//                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Issue_Status");
+//                entity.HasOne(d => d.Status)
+//                    .WithMany(p => p.Issue)
+//                    .HasForeignKey(d => d.StatusId)
+////                    .OnDelete(DeleteBehavior.ClientSetNull)
+//                    .HasConstraintName("FK_Issue_Status");
 
-                entity.HasOne(d => d.ProductVersionOs)
-                    .WithMany(p => p.Issue)
-                    .HasForeignKey(d => new {d.ProductId, d.OperatingSystemId, d.VersionNumberId})
-//                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Issue_ProductVersionOs");
+//                entity.HasOne(d => d.ProductVersionOs)
+//                    .WithMany(p => p.Issue)
+//                    .HasForeignKey(d => new {d.ProductId, d.OperatingSystemId, d.VersionNumberId})
+////                    .OnDelete(DeleteBehavior.ClientSetNull)
+//                    .HasConstraintName("FK_Issue_ProductVersionOs");
             });
 
             modelBuilder.Entity<OperatingSystem>(entity =>
