@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Bogus;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StoneWare.Models;
 using OperatingSystem = StoneWare.Models.OperatingSystem;
 
@@ -31,7 +26,7 @@ namespace StoneWare.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(
                     "Data Source=Lenovo-310\\SQLEXPRESS;Initial Catalog=StoneWare;Integrated Security=True");
             }
@@ -51,17 +46,17 @@ namespace StoneWare.Data
 
                 entity.Property(e => e.TimeLastUpdated).HasColumnType("datetime");
 
-//                entity.HasOne(d => d.Status)
-//                    .WithMany(p => p.Issue)
-//                    .HasForeignKey(d => d.StatusId)
-////                    .OnDelete(DeleteBehavior.ClientSetNull)
-//                    .HasConstraintName("FK_Issue_Status");
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Issue)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Issue_Status");
 
-//                entity.HasOne(d => d.ProductVersionOs)
-//                    .WithMany(p => p.Issue)
-//                    .HasForeignKey(d => new {d.ProductId, d.OperatingSystemId, d.VersionNumberId})
-////                    .OnDelete(DeleteBehavior.ClientSetNull)
-//                    .HasConstraintName("FK_Issue_ProductVersionOs");
+                entity.HasOne(d => d.ProductVersionOs)
+                    .WithMany(p => p.Issue)
+                    .HasForeignKey(d => new {d.ProductId, d.OperatingSystemId, d.VersionNumberId})
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Issue_ProductVersionOs");
             });
 
             modelBuilder.Entity<OperatingSystem>(entity =>
@@ -87,19 +82,19 @@ namespace StoneWare.Data
                 entity.HasOne(d => d.OperatingSystem)
                     .WithMany(p => p.ProductVersionOs)
                     .HasForeignKey(d => d.OperatingSystemId)
-//                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductVersionOs_OperatingSystem");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductVersionOs)
                     .HasForeignKey(d => d.ProductId)
-//                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductVersionOs_Product");
 
                 entity.HasOne(d => d.VersionNumber)
                     .WithMany(p => p.ProductVersionOs)
                     .HasForeignKey(d => d.VersionNumberId)
-//                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductVersionOs_VersionNumber");
             });
 
@@ -122,28 +117,6 @@ namespace StoneWare.Data
 
         void OnModelCreatingPartial(ModelBuilder modelBuilder)
         {
-
-//            modelBuilder.Entity<Issue>()
-//                .HasData(
-//                    new Issue
-//                    {
-//                        Id = 1,
-//                        StatusId = 1,
-//                        ProductId = 4,
-//                        VersionNumberId = 2,
-//                        OperatingSystemId = 5,
-//                        TimeCreated = DateTime.Now,
-//                        TimeLastUpdated = DateTime.Now, 
-//                        Problem = "This is a test",
-//                        Resolution = "This is also a test"
-//                    }
-//                );
-
-//            var issueList = PopulateTestIssues();
-//
-//            modelBuilder.Entity<Issue>().HasData(issueList);
         }
-
-        
     }
 }
