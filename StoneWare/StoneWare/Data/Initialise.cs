@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Bogus;
@@ -22,6 +22,8 @@ namespace StoneWare.Data
             {
                 using (var context = serviceScope.ServiceProvider.GetService<StoneWareContext>())
                 {
+                    context.Database.EnsureCreated();
+                    
                     PopulateOperatingSystem(context);
 
                     PopulateVersionNumber(context);
@@ -35,21 +37,6 @@ namespace StoneWare.Data
                     PopulateIssue(context);
                 }
             }
-        }
-
-        public static void SeedTestDb(StoneWareContext context)
-        {
-            PopulateOperatingSystem(context);
-
-            PopulateVersionNumber(context);
-
-            PopulateProduct(context);
-
-            PopulateStatus(context);
-
-            PopulateProductVersionOs(context);
-
-            PopulateIssue(context);
         }
 
         private static void PopulateIssue(StoneWareContext context)
@@ -351,9 +338,9 @@ namespace StoneWare.Data
                 context.Database.OpenConnection();
 
                 context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.ProductVersionOs ON");
-
+                
                 context.SaveChanges();
-
+                
                 context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.ProductVersionOs OFF");
 
                 context.Database.CloseConnection();
@@ -366,16 +353,24 @@ namespace StoneWare.Data
             {
                 context.Status.AddRange(new Status
                     {
-//                                Id = 1,
-                        Name = "Open"
+                        Id = 1,
+                        Name = "Outstanding"
                     },
                     new Status
                     {
-//                                Id = 2,
+                        Id = 2,
                         Name = "Resolved"
                     });
 
+                context.Database.OpenConnection();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Status ON");
+
                 context.SaveChanges();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Status OFF");
+
+                context.Database.CloseConnection();
             }
         }
 
@@ -385,26 +380,34 @@ namespace StoneWare.Data
             {
                 context.Product.AddRange(new Product
                     {
-//                                Id = (int) ProductEnum.DayTraderWannabe,
+                        Id = (int) ProdEnum.DayTraderWannabe,
                         Name = "Day Trader Wannabe"
                     },
                     new Product
                     {
-//                                Id = (int) ProductEnum.InvestmentOverlord,
+                        Id = (int) ProdEnum.InvestmentOverlord,
                         Name = "Investment Overlord"
                     },
                     new Product
                     {
-//                                Id = (int) ProductEnum.WorkoutPlanner,
+                        Id = (int) ProdEnum.WorkoutPlanner,
                         Name = "Workout Planner"
                     },
                     new Product
                     {
-//                                Id = (int) ProductEnum.SocialAnxietyPlanner,
+                        Id = (int) ProdEnum.SocialAnxietyPlanner,
                         Name = "Social Anxiety Planner"
                     });
 
+                context.Database.OpenConnection();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Product ON");
+
                 context.SaveChanges();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Product OFF");
+
+                context.Database.CloseConnection();
             }
         }
 
@@ -414,36 +417,44 @@ namespace StoneWare.Data
             {
                 context.VersionNumber.AddRange(new VersionNumber
                     {
-//                                Id = (int) VersionNumberEnum.OneZero,
+                        Id = (int) VerNoEnum.OneZero,
                         Description = "1.0"
                     },
                     new VersionNumber
                     {
-//                                Id = (int) VersionNumberEnum.OneOne,
+                        Id = (int) VerNoEnum.OneOne,
                         Description = "1.1"
                     },
                     new VersionNumber
                     {
-//                                Id = (int) VersionNumberEnum.OneTwo,
+                        Id = (int) VerNoEnum.OneTwo,
                         Description = "1.2"
                     },
                     new VersionNumber
                     {
-//                                Id = (int) VersionNumberEnum.OneThree,
+                        Id = (int) VerNoEnum.OneThree,
                         Description = "1.3"
                     },
                     new VersionNumber
                     {
-//                                Id = (int) VersionNumberEnum.TwoZero,
+                        Id = (int) VerNoEnum.TwoZero,
                         Description = "2.0"
                     },
                     new VersionNumber
                     {
-//                                Id = (int) VersionNumberEnum.TwoOne,
+                        Id = (int) VerNoEnum.TwoOne,
                         Description = "2.1"
                     });
 
+                context.Database.OpenConnection();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.VersionNumber ON");
+
                 context.SaveChanges();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.VersionNumber OFF");
+
+                context.Database.CloseConnection();
             }
         }
 
@@ -454,36 +465,44 @@ namespace StoneWare.Data
                 context.OperatingSystem.AddRange(
                     new OperatingSystem
                     {
-//                                Id = (int) OperatingSystemEnum.Linux,
+                        Id = (int) OSEnum.Linux,
                         Name = "Linux"
                     },
                     new OperatingSystem
                     {
-//                                Id = (int) OperatingSystemEnum.MacOS,
+                        Id = (int) OSEnum.MacOS,
                         Name = "MacOS"
                     },
                     new OperatingSystem
                     {
-//                                Id = (int) OperatingSystemEnum.Windows,
+                        Id = (int) OSEnum.Windows,
                         Name = "Windows"
                     },
                     new OperatingSystem
                     {
-//                                Id = (int) OperatingSystemEnum.Android,
+                        Id = (int) OSEnum.Android,
                         Name = "Android"
                     },
                     new OperatingSystem
                     {
-//                                Id = (int) OperatingSystemEnum.iOS,
+                        Id = (int) OSEnum.iOS,
                         Name = "iOS"
                     },
                     new OperatingSystem
                     {
-//                                Id = (int) OperatingSystemEnum.WindowsMobile,
+                        Id = (int) OSEnum.WindowsMobile,
                         Name = "Windows Mobile"
                     });
 
+                context.Database.OpenConnection();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.OperatingSystem ON");
+
                 context.SaveChanges();
+
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.OperatingSystem OFF");
+
+                context.Database.CloseConnection();
             }
         }
 
@@ -538,7 +557,7 @@ namespace StoneWare.Data
                 .RuleFor(i => i.TimeLastUpdated, f => f.Date.Recent(2))
                 .RuleFor(i => i.Problem, f => f.Hacker.Phrase())
                 .RuleFor(i => i.Resolution,
-                    (f, i) => i.StatusId == 1 ? f.Hacker.Phrase() : null);
+                    (f, i) => i.StatusId == 2 ? f.Hacker.Phrase() : null);
 
             var issueList = new List<Issue>();
 
@@ -566,43 +585,46 @@ namespace StoneWare.Data
             {
                 (int) ProdEnum.DayTraderWannabe => i.VersionNumberId switch
                 {
-                    (int) VerNoEnum.OneZero => 
-                        f.PickRandom((int) OSEnum.Linux, (int) OSEnum.Windows),
-                    (int) VerNoEnum.OneOne => 
-                        f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS, (int) OSEnum.Windows),
-                    (int) VerNoEnum.OneTwo => 
-                        f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS, (int) OSEnum.WindowsMobile),
-                    (int) VerNoEnum.OneThree => 
-                        f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
+                    (int) VerNoEnum.OneZero =>
+                    f.PickRandom((int) OSEnum.Linux, (int) OSEnum.Windows),
+                    (int) VerNoEnum.OneOne =>
+                    f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS, (int) OSEnum.Windows),
+                    (int) VerNoEnum.OneTwo =>
+                    f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android,
+                        (int) OSEnum.iOS, (int) OSEnum.WindowsMobile),
+                    (int) VerNoEnum.OneThree =>
+                    f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
                     _ => 0 // Something went wrong -- 0 should force SQL Server to throw
                 },
                 (int) ProdEnum.InvestmentOverlord => i.VersionNumberId switch
                 {
-                    (int) VerNoEnum.OneZero => 
-                        f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.iOS),
-                    (int) VerNoEnum.TwoZero => 
-                        f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Android, (int) OSEnum.iOS),
-                    (int) VerNoEnum.TwoOne => 
-                        f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
+                    (int) VerNoEnum.OneZero =>
+                    f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.iOS),
+                    (int) VerNoEnum.TwoZero =>
+                    f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Android, (int) OSEnum.iOS),
+                    (int) VerNoEnum.TwoOne =>
+                    f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
                     _ => 0 // Something went wrong -- 0 should force SQL Server to throw
                 },
                 (int) ProdEnum.WorkoutPlanner => i.VersionNumberId switch
                 {
-                    (int) VerNoEnum.OneZero => 
-                        f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS),
-                    (int) VerNoEnum.OneOne => 
-                        f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS, (int) OSEnum.WindowsMobile),
-                    (int) VerNoEnum.TwoZero => 
-                        f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
+                    (int) VerNoEnum.OneZero =>
+                    f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS),
+                    (int) VerNoEnum.OneOne =>
+                    f.PickRandom((int) OSEnum.Linux, (int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android,
+                        (int) OSEnum.iOS, (int) OSEnum.WindowsMobile),
+                    (int) VerNoEnum.TwoZero =>
+                    f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
                     _ => 0 // Something went wrong -- 0 should force SQL Server to throw
                 },
                 (int) ProdEnum.SocialAnxietyPlanner => i.VersionNumberId switch
                 {
-                    (int) VerNoEnum.OneZero => 
-                        f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS, (int) OSEnum.WindowsMobile),
-                    (int) VerNoEnum.OneOne => 
-                        f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
-                    _ =>0 // Something went wrong -- 0 should force SQL Server to throw
+                    (int) VerNoEnum.OneZero =>
+                    f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS,
+                        (int) OSEnum.WindowsMobile),
+                    (int) VerNoEnum.OneOne =>
+                    f.PickRandom((int) OSEnum.MacOS, (int) OSEnum.Windows, (int) OSEnum.Android, (int) OSEnum.iOS),
+                    _ => 0 // Something went wrong -- 0 should force SQL Server to throw
                 },
                 _ => 0 // Something went wrong -- 0 should force SQL Server to throw
             };
@@ -621,14 +643,15 @@ namespace StoneWare.Data
             // are necessarily applicable. This expression should select a valid Id.
             return i.ProductId switch
             {
-                (int) ProdEnum.DayTraderWannabe => 
-                    f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.OneOne, (int) VerNoEnum.OneTwo, (int) VerNoEnum.OneThree),
-                (int) ProdEnum.InvestmentOverlord => 
-                    f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.TwoZero, (int) VerNoEnum.TwoOne),
-                (int) ProdEnum.WorkoutPlanner => 
-                    f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.OneOne, (int) VerNoEnum.TwoZero),
-                (int) ProdEnum.SocialAnxietyPlanner => 
-                    f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.OneOne),
+                (int) ProdEnum.DayTraderWannabe =>
+                f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.OneOne, (int) VerNoEnum.OneTwo,
+                    (int) VerNoEnum.OneThree),
+                (int) ProdEnum.InvestmentOverlord =>
+                f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.TwoZero, (int) VerNoEnum.TwoOne),
+                (int) ProdEnum.WorkoutPlanner =>
+                f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.OneOne, (int) VerNoEnum.TwoZero),
+                (int) ProdEnum.SocialAnxietyPlanner =>
+                f.PickRandom((int) VerNoEnum.OneZero, (int) VerNoEnum.OneOne),
                 _ => 0 // Something went wrong -- 0 should force SQL Server to throw
             };
         }
