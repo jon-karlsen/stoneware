@@ -10,11 +10,31 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[spIssuesResolvedSingleProdSingleVer] 
 	-- Add the parameters for the stored procedure here
-	@ProductId int = 0, 
-	@VersionNumberId int = 0,
-	@OperatingSystemId int = 0
+	@ProductId int, 
+	@VersionNumberId int,
+	@OperatingSystemId int
 AS
 BEGIN
+
+	-- Validate inputs not NULL
+	IF @ProductId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @ProductId cannot be NULL.'
+        RETURN;
+    END
+
+	IF @VersionNumberId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @VersionNumberId cannot be NULL.'
+        RETURN;
+    END
+
+	IF @OperatingSystemId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @OperatingSystemId cannot be NULL.'
+        RETURN;
+    END
+
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;

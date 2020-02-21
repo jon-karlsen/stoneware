@@ -10,9 +10,17 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[spIssuesResolvedSingleProdAllVer] 
 	-- Add the parameters for the stored procedure here
-	@ProductId int = 0
+	@ProductId int
 AS
 BEGIN
+
+	-- Validate input not NULL
+	IF @ProductId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @ProductId cannot be NULL.'
+        RETURN;
+    END
+
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;

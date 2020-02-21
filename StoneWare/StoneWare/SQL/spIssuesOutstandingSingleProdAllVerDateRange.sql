@@ -9,11 +9,32 @@ GO
 -- Description:	This stored procedure returns all issues with status set to “outstanding” for a single product of all versions within a date range.
 -- =============================================
 CREATE PROCEDURE [dbo].[spIssuesOutstandingSingleProdAllVerDateRange] 
-	@ProductId int = 0, 
-	@StartDate date = '1980-01-01',
-	@EndDate date = '1980-01-07'
+	@ProductId int, 
+	@StartDate date,
+	@EndDate date 
 AS
 BEGIN
+    
+    -- Validate inputs not NULL
+    
+    IF @ProductId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @ProductId cannot be NULL.'
+        RETURN;
+    END
+
+    IF @StartDate IS NULL
+    BEGIN
+        SELECT 'Parameter @StartDate cannot be NULL.'
+        RETURN;
+    END
+
+    IF @EndDate IS NULL
+    BEGIN
+        SELECT 'Parameter @EndDate cannot be NULL.'
+        RETURN;
+    END
+    
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;

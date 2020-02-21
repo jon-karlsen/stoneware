@@ -9,14 +9,52 @@ GO
 -- Description:	This stored procedure returns all issues with status set to “resolved” for a single product of a single version within a date range and containing a list of keywords (passed to the procedure as a string of comma-separated values).
 -- =============================================
 CREATE PROCEDURE [dbo].[spIssuesResolvedSingleProdSingleVerDateRangeKeywords] 
-	@ProductId int = 0, 
-	@VersionNumberId int = 0,
-	@OperatingSystemId int = 0,
-	@StartDate date = '1980-01-01',
-	@EndDate date = '1980-01-07',
-	@Keywords nvarchar(500) = ''
+	@ProductId int, 
+	@VersionNumberId int,
+	@OperatingSystemId int,
+	@StartDate date,
+	@EndDate date,
+	@Keywords nvarchar(500)
 AS
 BEGIN
+
+	-- Validate inputs not NULL
+	IF @ProductId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @ProductId cannot be NULL.'
+        RETURN;
+    END
+
+	IF @VersionNumberId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @VersionNumberId cannot be NULL.'
+        RETURN;
+    END
+
+	IF @OperatingSystemId IS NULL 
+    BEGIN  
+        SELECT 'Parameter @OperatingSystemId cannot be NULL.'
+        RETURN;
+    END
+
+	IF @StartDate IS NULL 
+    BEGIN  
+        SELECT 'Parameter @StartDate cannot be NULL.'
+        RETURN;
+    END
+
+	IF @EndDate IS NULL 
+    BEGIN  
+        SELECT 'Parameter @EndDate cannot be NULL.'
+        RETURN;
+    END
+
+	IF @Keywords IS NULL 
+    BEGIN  
+        SELECT 'Parameter @Keywords cannot be NULL.'
+        RETURN;
+    END
+
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;

@@ -10,9 +10,17 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[spIssuesResolvedKeywords] 
 	-- Add the parameters for the stored procedure here
-	@Keywords nvarchar(500) = ''
+	@Keywords nvarchar(500)
 AS
 BEGIN
+
+	-- Validate input not NULL
+	IF @Keywords IS NULL 
+    BEGIN  
+        SELECT 'Parameter @Keywords cannot be NULL.'
+        RETURN;
+    END
+
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;

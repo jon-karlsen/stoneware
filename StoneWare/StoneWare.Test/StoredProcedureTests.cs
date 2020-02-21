@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
@@ -37,7 +38,7 @@ namespace StoneWare.Test
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(23, result.Count);
+            Assert.Equal(25, result.Count);
         }
 
         #endregion
@@ -56,7 +57,7 @@ namespace StoneWare.Test
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(27, result.Count);
+            Assert.Equal(25, result.Count);
         }
 
         #endregion
@@ -64,9 +65,9 @@ namespace StoneWare.Test
         #region spIssuesOutstandingSingleProdAllVer
 
         [Theory]
-        [InlineData(1, 6)]
-        [InlineData(2, 8)]
-        [InlineData(3, 2)]
+        [InlineData(1, 5)]
+        [InlineData(2, 5)]
+        [InlineData(3, 8)]
         [InlineData(4, 7)]
         public async Task TestIssuesOutstandingSingleProductAllVersionsProductIdValid(int testId, int expectedAmt)
         {
@@ -113,16 +114,45 @@ namespace StoneWare.Test
             // Assert
             await Assert.ThrowsAsync<SqlException>(TestAction);
         }
+        
+        [Fact]
+        public async Task TestIssuesOutstandingSingleProdAllVerProductIdNull()
+        {
+            // Arrange
+
+            // Act
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
+                .LoadStoredProc("spIssuesOutstandingSingleProdAllVer")
+                .WithSqlParam("@ProductId", null)
+                .ExecuteStoredProc<IssueStoredProcedureResult>();
+
+            // Assert
+            await Assert.ThrowsAsync<SqlException>(TestAction);
+        }
+        
+        [Fact]
+        public async Task TestIssuesOutstandingSingleProdAllVerArgsNone()
+        {
+            // Arrange
+
+            // Act
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
+                .LoadStoredProc("spIssuesOutstandingSingleProdAllVer")
+                .ExecuteStoredProc<IssueStoredProcedureResult>();
+
+            // Assert
+            await Assert.ThrowsAsync<SqlException>(TestAction);
+        }
 
         #endregion
 
         #region spIssuesResolsvedSingleProdAllVer
 
         [Theory]
-        [InlineData(1, 5)]
-        [InlineData(2, 6)]
-        [InlineData(3, 5)]
-        [InlineData(4, 11)]
+        [InlineData(1, 10)]
+        [InlineData(2, 3)]
+        [InlineData(3, 4)]
+        [InlineData(4, 8)]
         public async Task TestIssuesResolvedSingleProductAllVersionsProductIdValid(int testId, int expectedAmt)
         {
             // Arrange
@@ -160,13 +190,12 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result = await _context
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdAllVer")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
 
@@ -204,7 +233,7 @@ namespace StoneWare.Test
 
             // Assert
             Assert.NotNull(result);
-            Assert.Single(result);
+            Assert.Equal(2, result.Count);
         }
 
         [Fact]
@@ -233,9 +262,9 @@ namespace StoneWare.Test
             // Act
             var result = await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdSingleVer")
-                .WithSqlParam("@ProductId", 1)
+                .WithSqlParam("@ProductId", 4)
                 .WithSqlParam("@VersionNumberId", 2)
-                .WithSqlParam("@OperatingSystemId", 1)
+                .WithSqlParam("@OperatingSystemId", 4)
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
@@ -274,12 +303,12 @@ namespace StoneWare.Test
             var result = await _context
                 .LoadStoredProc("spIssuesOutstandingSingleProdAllVerDateRange")
                 .WithSqlParam("@ProductId", 1)
-                .WithSqlParam("@StartDate", new DateTime(2020, 02, 09))
-                .WithSqlParam("@EndDate", new DateTime(2020, 02, 11))
+                .WithSqlParam("@StartDate", new DateTime(2020, 02, 15))
+                .WithSqlParam("@EndDate", new DateTime(2020, 02, 17))
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.Equal(4, result.Count);
+            Assert.Equal(5, result.Count);
         }
 
         [Fact]
@@ -288,14 +317,13 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result = await _context
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
                 .LoadStoredProc("spIssuesOutstandingSingleProdAllVerDateRange")
                 .WithSqlParam("@ProductId", 1)
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -330,13 +358,13 @@ namespace StoneWare.Test
                 .WithSqlParam("@ProductId", 1)
                 .WithSqlParam("@VersionNumberId", 1)
                 .WithSqlParam("@OperatingSystemId", 1)
-                .WithSqlParam("@StartDate", "2020-02-06")
-                .WithSqlParam("@EndDate", "2020-02-7")
+                .WithSqlParam("@StartDate", "2020-02-15")
+                .WithSqlParam("@EndDate", "2020-02-17")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
-            Assert.Single(result);
+            Assert.Equal(2, result.Count);
         }
 
         #endregion
@@ -352,12 +380,12 @@ namespace StoneWare.Test
             var result = await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdAllVerDateRange")
                 .WithSqlParam("@ProductId", 1)
-                .WithSqlParam("@StartDate", "2020-02-09")
-                .WithSqlParam("@EndDate", "2020-02-11")
+                .WithSqlParam("@StartDate", "2020-02-15")
+                .WithSqlParam("@EndDate", "2020-02-17")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.Equal(2, result.Count);
+            Assert.Equal(10, result.Count);
         }
 
         [Fact]
@@ -366,14 +394,13 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result = await _context
+            async Task TestAction() => await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdAllVerDateRange")
                 .WithSqlParam("@ProductId", 1)
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAnyAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -405,11 +432,11 @@ namespace StoneWare.Test
             // Act
             var result = await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdSingleVerDateRange")
-                .WithSqlParam("@ProductId", 1)
-                .WithSqlParam("@VersionNumberId", 4)
+                .WithSqlParam("@ProductId", 4)
+                .WithSqlParam("@VersionNumberId", 2)
                 .WithSqlParam("@OperatingSystemId", 4)
-                .WithSqlParam("@StartDate", "2020-02-09")
-                .WithSqlParam("@EndDate", "2020-02-12")
+                .WithSqlParam("@StartDate", "2020-02-15")
+                .WithSqlParam("@EndDate", "2020-02-17")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
@@ -427,13 +454,12 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result = await _context
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
                 .LoadStoredProc("spIssuesOutstandingKeywords")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -444,12 +470,13 @@ namespace StoneWare.Test
             // Act
             var result = await _context
                 .LoadStoredProc("spIssuesOutstandingKeywords")
-                .WithSqlParam("@Keywords", "ssl")
+                .WithSqlParam("@Keywords", "CSS")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(2, result.Count);
+            Assert.Equal(3, result.Count);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("CSS", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         [Fact]
@@ -457,16 +484,36 @@ namespace StoneWare.Test
         {
             // Arrange
 
+            // Act
             var result = await _context
                 .LoadStoredProc("spIssuesOutstandingKeywords")
-                .WithSqlParam("@Keywords", "ssl, xss, hdd")
+                .WithSqlParam("@Keywords", "css, sdd, json")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
             Assert.Equal(6, result.Count);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("CSS", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("SDD", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("JSON", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
+        [Fact]
+        public async Task TestIssuesOutstandingKeywordsArgNull()
+        {
+            // Arrange
+
+            // Act
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
+                .LoadStoredProc("spIssuesOutstandingKeywords")
+                .WithSqlParam("@Keywords", null)
+                .ExecuteStoredProc<IssueStoredProcedureResult>();
+
+            // Assert
+            await Assert.ThrowsAsync<SqlException>(TestAction);
+        }
+
+        
         #endregion
 
         #region spIssuesResolvedKeywords
@@ -477,13 +524,12 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result = await _context
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
                 .LoadStoredProc("spIssuesResolvedKeywords")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -494,12 +540,13 @@ namespace StoneWare.Test
             // Act
             var result = await _context
                 .LoadStoredProc("spIssuesResolvedKeywords")
-                .WithSqlParam("@Keywords", "ssl")
+                .WithSqlParam("@Keywords", "PCI")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("PCI", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         [Fact]
@@ -509,12 +556,14 @@ namespace StoneWare.Test
 
             var result = await _context
                 .LoadStoredProc("spIssuesResolvedKeywords")
-                .WithSqlParam("@Keywords", "ssl, xss, hdd")
+                .WithSqlParam("@Keywords", "SSL, HDD")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(4, result.Count);
+            Assert.Equal(3, result.Count);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("SSL", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("HDD", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         #endregion
@@ -527,13 +576,12 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result = await _context
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
                 .LoadStoredProc("spIssuesOutstandingSingleProdAllVerKeywords")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -545,13 +593,14 @@ namespace StoneWare.Test
             var result = await _context
                 .LoadStoredProc("spIssuesOutstandingSingleProdAllVerKeywords")
                 .WithSqlParam("@ProductId", 1)
-                .WithSqlParam("@Keywords", "JSON")
+                .WithSqlParam("@Keywords", "CSS")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
-            Assert.Single(result);
+            Assert.Equal(2, result.Count);
             Assert.DoesNotContain(result, r => r.ProductId != 1);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("CSS", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         [Fact]
@@ -562,12 +611,14 @@ namespace StoneWare.Test
             var result = await _context
                 .LoadStoredProc("spIssuesOutstandingSingleProdAllVerKeywords")
                 .WithSqlParam("@ProductId", 1)
-                .WithSqlParam("@Keywords", "JSON, USB")
+                .WithSqlParam("@Keywords", "HTTP, RAM")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("HTTP", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("RAM", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         #endregion
@@ -580,13 +631,12 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result = await _context
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() => await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdAllVerKeywords")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -598,13 +648,14 @@ namespace StoneWare.Test
             var result = await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdAllVerKeywords")
                 .WithSqlParam("@ProductId", 4)
-                .WithSqlParam("@Keywords", "USB")
+                .WithSqlParam("@Keywords", "COM")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
             Assert.Single(result);
             Assert.DoesNotContain(result, r => r.ProductId != 4);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("COM", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         [Fact]
@@ -615,13 +666,15 @@ namespace StoneWare.Test
             var result = await _context
                 .LoadStoredProc("spIssuesResolvedSingleProdAllVerKeywords")
                 .WithSqlParam("@ProductId", 4)
-                .WithSqlParam("@Keywords", "USB, HTTP")
+                .WithSqlParam("@Keywords", "COM, RAM")
                 .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
             Assert.DoesNotContain(result, r => r.ProductId != 4);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("COM", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("RAM", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         #endregion
@@ -634,14 +687,13 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result =
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() =>
                 await _context
                     .LoadStoredProc("spIssuesOutstandingSingleProdSingleVerKeywords")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -656,7 +708,7 @@ namespace StoneWare.Test
                     .WithSqlParam("@ProductId", 1)
                     .WithSqlParam("@VersionNumberId", 1)
                     .WithSqlParam("@OperatingSystemId", 1)
-                    .WithSqlParam("@Keywords", "USB")
+                    .WithSqlParam("@Keywords", "CSS")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
@@ -665,7 +717,7 @@ namespace StoneWare.Test
             Assert.Equal(1, result.First().ProductId);
             Assert.Equal(1, result.First().VersionNumberId);
             Assert.Equal(1, result.First().OperatingSystemId);
-            Assert.Contains(result, r => r.Problem.LastIndexOf("USB", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("CSS", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         #endregion
@@ -678,14 +730,13 @@ namespace StoneWare.Test
             // Arrange
 
             // Act
-            var result =
+            async Task<IEnumerable<IssueStoredProcedureResult>> TestAction() =>
                 await _context
                     .LoadStoredProc("spIssuesResolvedSingleProdSingleVerKeywords")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            await Assert.ThrowsAsync<SqlException>(TestAction);
         }
 
         [Fact]
@@ -699,8 +750,8 @@ namespace StoneWare.Test
                     .LoadStoredProc("spIssuesResolvedSingleProdSingleVerKeywords")
                     .WithSqlParam("@ProductId", 4)
                     .WithSqlParam("@VersionNumberId", 2)
-                    .WithSqlParam("@OperatingSystemId", 5)
-                    .WithSqlParam("@Keywords", "USB")
+                    .WithSqlParam("@OperatingSystemId", 3)
+                    .WithSqlParam("@Keywords", "COM")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
@@ -708,8 +759,8 @@ namespace StoneWare.Test
             Assert.Equal(2, result.First().StatusId);
             Assert.Equal(4, result.First().ProductId);
             Assert.Equal(2, result.First().VersionNumberId);
-            Assert.Equal(5, result.First().OperatingSystemId);
-            Assert.Contains(result, r => r.Problem.LastIndexOf("USB", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Equal(3, result.First().OperatingSystemId);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("COM", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         #endregion
@@ -726,21 +777,22 @@ namespace StoneWare.Test
                 await _context
                     .LoadStoredProc("spIssuesOutstandingSingleProdAllVerDateRangeKeywords")
                     .WithSqlParam("@ProductId", 2)
-                    .WithSqlParam("@StartDate", "2020-02-06")
-                    .WithSqlParam("@EndDate", "2020-02-07")
-                    .WithSqlParam("@Keywords", "SSL, COM")
+                    .WithSqlParam("@StartDate", "2020-02-15")
+                    .WithSqlParam("@EndDate", "2020-02-17")
+                    .WithSqlParam("@Keywords", "ADP, THX, JSON")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
-            Assert.Equal(2, result.Count);
+            Assert.Equal(3, result.Count);
             Assert.Equal(1, result.First().StatusId);
             Assert.Equal(2, result.First().ProductId);
-            Assert.Contains(result, r => r.Problem.LastIndexOf("SSL", StringComparison.OrdinalIgnoreCase) >= 0);
-            Assert.Contains(result, r => r.Problem.LastIndexOf("COM", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("ADP", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("THX", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("JSON", StringComparison.OrdinalIgnoreCase) >= 0);
             Assert.InRange(
                 result.First().TimeCreated.Date,
-                new DateTime(2020, 02, 06).Date,
-                new DateTime(2020, 02, 07).Date
+                new DateTime(2020, 02, 15).Date,
+                new DateTime(2020, 02, 17).Date
             );
         }
 
@@ -757,20 +809,20 @@ namespace StoneWare.Test
                 await _context
                     .LoadStoredProc("spIssuesResolvedSingleProdAllVerDateRangeKeywords")
                     .WithSqlParam("@ProductId", 4)
-                    .WithSqlParam("@StartDate", "2020-02-06")
-                    .WithSqlParam("@EndDate", "2020-02-09")
-                    .WithSqlParam("@Keywords", "SSL")
+                    .WithSqlParam("@StartDate", "2020-02-15")
+                    .WithSqlParam("@EndDate", "2020-02-17")
+                    .WithSqlParam("@Keywords", "COM")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
             Assert.Single(result);
             Assert.Equal(2, result.First().StatusId);
             Assert.Equal(4, result.First().ProductId);
-            Assert.Contains(result, r => r.Problem.LastIndexOf("SSL", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("COM", StringComparison.OrdinalIgnoreCase) >= 0);
             Assert.InRange(
                 result.First().TimeCreated.Date,
-                new DateTime(2020, 02, 06).Date,
-                new DateTime(2020, 02, 09).Date
+                new DateTime(2020, 02, 15).Date,
+                new DateTime(2020, 02, 17).Date
             );
         }
 
@@ -789,9 +841,9 @@ namespace StoneWare.Test
                     .WithSqlParam("@ProductId", 1)
                     .WithSqlParam("@VersionNumberId", 1)
                     .WithSqlParam("@OperatingSystemId", 1)
-                    .WithSqlParam("@StartDate", "2020-02-06")
-                    .WithSqlParam("@EndDate", "2020-02-07")
-                    .WithSqlParam("@Keywords", "USB")
+                    .WithSqlParam("@StartDate", "2020-02-15")
+                    .WithSqlParam("@EndDate", "2020-02-17")
+                    .WithSqlParam("@Keywords", "CSS")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
@@ -800,11 +852,11 @@ namespace StoneWare.Test
             Assert.Equal(1, result.First().ProductId);
             Assert.Equal(1, result.First().VersionNumberId);
             Assert.Equal(1, result.First().OperatingSystemId);
-            Assert.Contains(result, r => r.Problem.LastIndexOf("USB", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("CSS", StringComparison.OrdinalIgnoreCase) >= 0);
             Assert.InRange(
                 result.First().TimeCreated.Date,
-                new DateTime(2020, 02, 06).Date,
-                new DateTime(2020, 02, 07).Date
+                new DateTime(2020, 02, 15).Date,
+                new DateTime(2020, 02, 17).Date
             );
         }
         
@@ -822,9 +874,9 @@ namespace StoneWare.Test
                     .WithSqlParam("@ProductId", 4)
                     .WithSqlParam("@VersionNumberId", 2)
                     .WithSqlParam("@OperatingSystemId", 3)
-                    .WithSqlParam("@StartDate", "2020-02-06")
-                    .WithSqlParam("@EndDate", "2020-02-12")
-                    .WithSqlParam("@Keywords", "XML, JBOD, capacitor")
+                    .WithSqlParam("@StartDate", "2020-02-15")
+                    .WithSqlParam("@EndDate", "2020-02-17")
+                    .WithSqlParam("@Keywords", "COM, matrix")
                     .ExecuteStoredProc<IssueStoredProcedureResult>();
 
             // Assert
@@ -833,13 +885,12 @@ namespace StoneWare.Test
             Assert.Equal(4, result.First().ProductId);
             Assert.Equal(2, result.First().VersionNumberId);
             Assert.Equal(3, result.First().OperatingSystemId);
-            Assert.Contains(result, r => r.Problem.LastIndexOf("XML", StringComparison.OrdinalIgnoreCase) >= 0 || 
-                                         r.Problem.LastIndexOf("JBOD", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                         r.Problem.LastIndexOf("capacitor", StringComparison.OrdinalIgnoreCase) >= 0);
+            Assert.Contains(result, r => r.Problem.LastIndexOf("COM", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                         r.Problem.LastIndexOf("matrix", StringComparison.OrdinalIgnoreCase) >= 0);
             Assert.InRange(
                 result.First().TimeCreated.Date,
-                new DateTime(2020, 02, 06).Date,
-                new DateTime(2020, 02, 12).Date
+                new DateTime(2020, 02, 15).Date,
+                new DateTime(2020, 02, 17).Date
             );
         }
         

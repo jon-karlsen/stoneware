@@ -547,7 +547,7 @@ namespace StoneWare.Data
                 .RuleFor(i => i.VersionNumberId, (f, i) => PickVersionNumberId(i, f))
                 .RuleFor(i => i.OperatingSystemId, (f, i) => PickOperatingSystemId(i, f))
                 .RuleFor(i => i.StatusId, f => f.Random.Number(1, 2))
-                .RuleFor(i => i.TimeCreated, f => f.Date.Between(new DateTime(2020, 02, 05), new DateTime(2020, 02, 12) ))
+                .RuleFor(i => i.TimeCreated, f => new DateTime(2020, 02, 16)) // This was previously set to choose from a range of dates, but this breaks testing. Thus single date for all.
                 .RuleFor(i => i.TimeLastUpdated, f => f.Date.Recent(2))
                 .RuleFor(i => i.Problem, f => f.Hacker.Phrase())
                 .RuleFor(i => i.Resolution,
