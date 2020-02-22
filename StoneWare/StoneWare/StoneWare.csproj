@@ -13,28 +13,5 @@
       <PackageReference Include="WaffleGenerator.Bogus" Version="4.0.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Include="SQL\spIssuesOutstanding.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdAllVer.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdAllVerDateRange.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdAllVerDateRangeKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdAllVerKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdSingleVer.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdSingleVerDateRange.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdSingleVerDateRangeKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesOutstandingSingleProdSingleVerKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolved.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdAllVer.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdAllVerDateRange.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdAllVerDateRangeKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdAllVerKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdSingleVer.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdSingleVerDateRange.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdSingleVerDateRangeKeywords.sql" />
-      <EmbeddedResource Include="SQL\spIssuesResolvedSingleProdSingleVerKeywords.sql" />
-    </ItemGroup>
-
 
 </Project>
