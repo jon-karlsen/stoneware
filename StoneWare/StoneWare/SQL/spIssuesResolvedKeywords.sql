@@ -51,12 +51,12 @@ BEGIN
 		EXISTS 
 		(	
 			SELECT 
-				TRIM(value) 
+				TRIM(LOWER(value))
 			FROM 
 				STRING_SPLIT(i.Problem, ' ')
 			INTERSECT 
 			SELECT 
-				TRIM(value) 
+				TRIM(LOWER(value))
 			FROM 
 				STRING_SPLIT(@Keywords, ',')
 		)

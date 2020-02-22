@@ -72,13 +72,13 @@ BEGIN
 		CAST(TimeCreated AS date) BETWEEN @StartDate AND @EndDate AND
 		EXISTS 
 		(	
-			SELECT 
-				TRIM(value) 
+			SELECT
+                TRIM(LOWER(value))
 			FROM 
 				STRING_SPLIT(i.Problem, ' ')
 			INTERSECT 
-			SELECT 
-				TRIM(value) 
+			SELECT
+                TRIM(LOWER(value))
 			FROM 
 				STRING_SPLIT(@Keywords, ',')
 		)
