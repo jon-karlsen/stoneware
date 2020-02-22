@@ -1,4 +1,9 @@
 ﻿# StoneWare
+ 
+**The branches deliv_1, deliv_2, and deliv_3 correspond to the deliverables as outlined in the project description.**
+- deliv_1 contains only the ERD
+- deliv_2 contains the ERD, as well as ``.bak`` and SQL script backups of the database _sans stored procedures_
+- deliv_3 contains the full project (and is equal to the master branch)
 
 Student repo for the 6<sup>th</sup> project of [OpenClassrooms' .NET Back-End Developer path](https://openclassrooms.com/en/paths/156-back-end-developer-net), the objective
 of which is to design and implement a relational database for an issue-tracking system. This project contains:
